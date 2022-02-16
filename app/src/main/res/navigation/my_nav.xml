@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/allBudgetListFragment">
+
+    <fragment
+        android:id="@+id/allBudgetListFragment"
+        android:name="com.sandeepprabhakula.budgetapp.fragments.read.AllBudgetListFragment"
+        android:label="Daily Budget"
+        tools:layout="@layout/fragment_all_budget_list" >
+        <action
+            android:id="@+id/action_allBudgetListFragment_to_addTodayBudgetFragment"
+            app:destination="@id/addTodayBudgetFragment" />
+        <action
+            android:id="@+id/action_allBudgetListFragment_to_updateTodayBudgetFragment2"
+            app:destination="@id/updateTodayBudgetFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTodayBudgetFragment"
+        android:name="com.sandeepprabhakula.budgetapp.fragments.add.AddTodayBudgetFragment"
+        android:label="Add Today's Budget"
+        tools:layout="@layout/fragment_add_today_budget" >
+        <action
+            android:id="@+id/action_addTodayBudgetFragment_to_allBudgetListFragment"
+            app:destination="@id/allBudgetListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateTodayBudgetFragment2"
+        android:name="com.sandeepprabhakula.budgetapp.fragments.update.UpdateTodayBudgetFragment"
+        android:label="Update Budget" >
+        <action
+            android:id="@+id/action_updateTodayBudgetFragment2_to_allBudgetListFragment"
+            app:destination="@id/allBudgetListFragment" />
+        <argument
+            android:name="currentBudget"
+            app:argType="com.sandeepprabhakula.budgetapp.entities.DailyBudgetEntity" />
+    </fragment>
+</navigation>
