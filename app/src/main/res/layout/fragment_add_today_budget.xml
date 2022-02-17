@@ -7,19 +7,17 @@
     tools:context=".fragments.add.AddTodayBudgetFragment">
 
 
-    <EditText
+    <DatePicker
         android:id="@+id/todaysDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter today's date"
-        android:inputType="date"
+        android:datePickerMode="spinner"
         app:layout_constraintBottom_toTopOf="@+id/expenditure"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        android:calendarViewShown="false"/>
 
     <EditText
         android:id="@+id/expenditure"
