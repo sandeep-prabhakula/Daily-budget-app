@@ -10,10 +10,10 @@ interface BudgetDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addTodayBudget(budget: DailyBudgetEntity)
 
-    @Query("SELECT * FROM daily_budget ORDER BY date DESC")
+    @Query("SELECT * FROM daily_budget ORDER BY id DESC")
     fun readAllBudget():LiveData<List<DailyBudgetEntity>>
 
-    @Update()
+    @Update
     fun updateTodayBudget(budget: DailyBudgetEntity)
 
     @Delete

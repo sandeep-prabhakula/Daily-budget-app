@@ -2,8 +2,6 @@ package com.sandeepprabhakula.budgetapp.fragments.add
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +9,12 @@ import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.sandeepprabhakula.budgetapp.viewModel.BudgetViewModel
-import com.sandeepprabhakula.budgetapp.entities.DailyBudgetEntity
 import com.sandeepprabhakula.budgetapp.R
-import java.util.*
+import com.sandeepprabhakula.budgetapp.entities.DailyBudgetEntity
+import com.sandeepprabhakula.budgetapp.viewModel.BudgetViewModel
 
 class AddTodayBudgetFragment : Fragment() {
     private lateinit var viewModel: BudgetViewModel
@@ -30,8 +28,9 @@ class AddTodayBudgetFragment : Fragment() {
         val date: DatePicker = view.findViewById(R.id.todaysDate)
         val exp: EditText = view.findViewById(R.id.expenditure)
         val button: Button = view.findViewById(R.id.addBudget)
-        viewModel = ViewModelProvider(this).get(BudgetViewModel::class.java)
+        viewModel = ViewModelProvider(this)[BudgetViewModel::class.java]
         button.setOnClickListener {
+            
             val dateText = "${date.dayOfMonth} - ${date.month+1} - ${date.year}"
             val expText = exp.text.toString()
             if (!TextUtils.isEmpty(dateText) || !TextUtils.isEmpty(expText)) {
