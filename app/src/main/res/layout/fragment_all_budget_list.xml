@@ -37,6 +37,7 @@
         android:id="@+id/costLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#AEC2F4"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
