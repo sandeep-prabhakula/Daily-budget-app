@@ -18,4 +18,7 @@ interface BudgetDao {
 
     @Delete
     fun deleteAnyBudget(budget: DailyBudgetEntity)
+
+    @Query("SELECT SUM( `today budget`) FROM DAILY_BUDGET")
+    fun getTotalExpense():String
 }

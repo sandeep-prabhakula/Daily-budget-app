@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,10 @@ import com.sandeepprabhakula.budgetapp.adapter.ReadDailyBudgetAdapter
 import com.sandeepprabhakula.budgetapp.adapter.UpdateBudget
 import com.sandeepprabhakula.budgetapp.entities.DailyBudgetEntity
 import com.sandeepprabhakula.budgetapp.viewModel.BudgetViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AllBudgetListFragment : Fragment(), UpdateBudget {
     private lateinit var viewModel: BudgetViewModel
@@ -32,12 +37,19 @@ class AllBudgetListFragment : Fragment(), UpdateBudget {
 
         val budgetList: RecyclerView = view.findViewById(R.id.recyclerView)
         val adapter = ReadDailyBudgetAdapter(this)
+        val totalCost :TextView = view.findViewById(R.id.totalCost)
         budgetList.adapter = adapter
         budgetList.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel = ViewModelProvider(this)[BudgetViewModel::class.java]
         viewModel.readAllBudget.observe(viewLifecycleOwner) {
             adapter.setData(it)
+        }
+        CoroutineScope(Dispatchers.IO).launch{
+            val cost = viewModel.getTotalExpense()
+            withContext(Dispatchers.Main){
+                totalCost.text = "Rs.$cost"
+            }
         }
         val itemTouchHelperCallback = object :
             ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){

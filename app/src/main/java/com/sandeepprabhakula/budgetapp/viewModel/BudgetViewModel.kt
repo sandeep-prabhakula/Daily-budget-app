@@ -13,13 +13,14 @@ import kotlinx.coroutines.launch
 class BudgetViewModel(application: Application) : AndroidViewModel(application) {
     val readAllBudget: LiveData<List<DailyBudgetEntity>>
     private val repository: BudgetRepository
-
     init {
         val budgetDao = BudgetDatabase.getDatabase(application).budgetDao()
         repository = BudgetRepository(budgetDao)
         readAllBudget = repository.readAllBudget
     }
-
+    fun  getTotalExpense():String{
+        return repository.getTotalExpenses()
+    }
     fun addTodayBudget(budget: DailyBudgetEntity) {
         viewModelScope.launch (Dispatchers.IO){
             repository.addTodayBudget(budget)
