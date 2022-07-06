@@ -26,6 +26,7 @@
         android:ems="10"
         android:hint="Enter the expenditure"
         android:inputType="numberDecimal"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/addBudget"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -35,9 +36,10 @@
 
     <Button
         android:id="@+id/addBudget"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="ADD Budget"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="Add Budget"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

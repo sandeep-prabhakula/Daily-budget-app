@@ -28,6 +28,7 @@ class UpdateTodayBudgetFragment : Fragment() {
         val updateBudget:Button = view.findViewById(R.id.updateBudget)
         dateUP.setText(args.currentBudget.date)
         expUP.setText(args.currentBudget.budget)
+        dateUP.isEnabled = false
         viewModel = ViewModelProvider(this)[BudgetViewModel::class.java]
         updateBudget.setOnClickListener {
             val dateUPtxt = dateUP.text.toString()

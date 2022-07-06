@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.add.AddTodayBudgetFragment">
+    tools:context=".fragments.update.UpdateTodayBudgetFragment">
 
 
     <EditText
@@ -37,8 +37,9 @@
 
     <Button
         android:id="@+id/updateBudget"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:textAllCaps="false"
         android:text="Update Budget"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

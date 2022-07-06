@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.sandeepprabhakula.budgetapp.entities.DailyBudgetEntity
 import com.sandeepprabhakula.budgetapp.R
@@ -16,7 +17,7 @@ class ReadDailyBudgetAdapter (private val listener:UpdateBudget): RecyclerView.A
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val date:TextView = itemView.findViewById(R.id.dateFromDB)
         val exp:TextView = itemView.findViewById(R.id.expenditureFromDB)
-        val currentItem:CardView = itemView.findViewById(R.id.currentItem)
+        val currentItem:ConstraintLayout = itemView.findViewById(R.id.currentItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

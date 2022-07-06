@@ -1,18 +1,21 @@
 package com.sandeepprabhakula.budgetapp.fragments.read
 
+import android.graphics.Canvas
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.sandeepprabhakula.budgetapp.R
 import com.sandeepprabhakula.budgetapp.adapter.ReadDailyBudgetAdapter
 import com.sandeepprabhakula.budgetapp.adapter.UpdateBudget
@@ -37,22 +40,27 @@ class AllBudgetListFragment : Fragment(), UpdateBudget {
 
         val budgetList: RecyclerView = view.findViewById(R.id.recyclerView)
         val adapter = ReadDailyBudgetAdapter(this)
-        val totalCost :TextView = view.findViewById(R.id.totalCost)
+        val totalCost: TextView = view.findViewById(R.id.totalCost)
         budgetList.adapter = adapter
         budgetList.layoutManager = LinearLayoutManager(requireContext())
-
+        budgetList.addItemDecoration(
+            DividerItemDecoration(
+                budgetList.context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         viewModel = ViewModelProvider(this)[BudgetViewModel::class.java]
         viewModel.readAllBudget.observe(viewLifecycleOwner) {
             adapter.setData(it)
         }
-        CoroutineScope(Dispatchers.IO).launch{
+        CoroutineScope(Dispatchers.IO).launch {
             val cost = viewModel.getTotalExpense()
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 totalCost.text = "Rs.$cost"
             }
         }
         val itemTouchHelperCallback = object :
-            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -62,10 +70,56 @@ class AllBudgetListFragment : Fragment(), UpdateBudget {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val deletedNote = adapter.getNoteAt(position)
                 viewModel.deleteAnyBudget(adapter.getNoteAt(viewHolder.adapterPosition))
-                Toast.makeText(requireContext(),"Budget deleted",Toast.LENGTH_SHORT).show()
+                Snackbar.make(
+                    budgetList,
+                    "Deleted Budget of date ${deletedNote.date}",
+                    Snackbar.LENGTH_LONG
+                )
+                    .setAction("UNDO") {
+                        viewModel.addTodayBudget(deletedNote)
+                    }
+                    .show()
             }
 
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                    val itemView = viewHolder.itemView
+                    val p = Paint()
+                    if (dX > 0) {
+                        p.setARGB(255, 255, 0, 0)
+                        c.drawRect(
+                            itemView.left.toFloat(), itemView.top.toFloat(), dX,
+                            itemView.bottom.toFloat(), p
+                        )
+                    } else {
+                        p.setARGB(255, 255, 0, 0)
+                        c.drawRect(
+                            itemView.right.toFloat() + dX, itemView.top.toFloat(),
+                            itemView.right.toFloat(), itemView.bottom.toFloat(), p
+                        )
+                    }
+                }
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+            }
         }
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(budgetList)

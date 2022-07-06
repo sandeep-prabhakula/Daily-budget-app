@@ -8,23 +8,27 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class BudgetRepository(private val budgetDao: BudgetDao) {
-    val readAllBudget:LiveData<List<DailyBudgetEntity>> = budgetDao.readAllBudget()
-//    val totalExpense:String = budgetDao.getTotalExpense()
-fun getTotalExpenses():String{
+    val readAllBudget: LiveData<List<DailyBudgetEntity>> = budgetDao.readAllBudget()
+
+    //    val totalExpense:String = budgetDao.getTotalExpense()
+    fun getTotalExpenses(): String {
         return budgetDao.getTotalExpense()
     }
-    fun addTodayBudget(budget: DailyBudgetEntity){
-        GlobalScope.launch (Dispatchers.IO){
+
+    fun addTodayBudget(budget: DailyBudgetEntity) {
+        GlobalScope.launch(Dispatchers.IO) {
             budgetDao.addTodayBudget(budget)
         }
     }
-    fun updateTodayBudget(budget: DailyBudgetEntity){
-        GlobalScope.launch(Dispatchers.IO){
+
+    fun updateTodayBudget(budget: DailyBudgetEntity) {
+        GlobalScope.launch(Dispatchers.IO) {
             budgetDao.updateTodayBudget(budget)
         }
     }
-    fun deleteAnyBudget(budget: DailyBudgetEntity){
-        GlobalScope.launch(Dispatchers.IO){
+
+    fun deleteAnyBudget(budget: DailyBudgetEntity) {
+        GlobalScope.launch(Dispatchers.IO) {
             budgetDao.deleteAnyBudget(budget)
         }
     }
