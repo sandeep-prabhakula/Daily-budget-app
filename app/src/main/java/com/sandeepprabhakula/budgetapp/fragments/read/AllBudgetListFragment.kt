@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -72,14 +73,31 @@ class AllBudgetListFragment : Fragment(), UpdateBudget {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val deletedNote = adapter.getNoteAt(position)
-                viewModel.deleteAnyBudget(adapter.getNoteAt(viewHolder.adapterPosition))
+                val deleteJob = lifecycleScope.launch(Dispatchers.IO){
+                    viewModel.deleteAnyBudget(adapter.getNoteAt(viewHolder.adapterPosition))
+                }
+                lifecycleScope.launch(Dispatchers.IO) {
+                    deleteJob.join()
+                    val cost = viewModel.getTotalExpense()
+                    withContext(Dispatchers.Main) {
+                        totalCost.text = "Rs.$cost"
+                    }
+                }
                 Snackbar.make(
                     budgetList,
                     "Deleted Budget of date ${deletedNote.date}",
                     Snackbar.LENGTH_LONG
                 )
                     .setAction("UNDO") {
-                        viewModel.addTodayBudget(deletedNote)
+                        val undoJob = lifecycleScope.launch(Dispatchers.IO){ viewModel.addTodayBudget(deletedNote) }
+
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            undoJob.join()
+                            val cost = viewModel.getTotalExpense()
+                            withContext(Dispatchers.Main) {
+                                totalCost.text = "Rs.$cost"
+                            }
+                        }
                     }
                     .show()
             }
