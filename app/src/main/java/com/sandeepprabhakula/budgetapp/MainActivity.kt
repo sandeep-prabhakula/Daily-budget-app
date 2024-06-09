@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             .build()
         val myRequest = PeriodicWorkRequest.Builder(
             MyWorker::class.java,
-            20,TimeUnit.HOURS
+            10,TimeUnit.HOURS
         ).setConstraints(constraints).build()
 
         WorkManager.getInstance(this)

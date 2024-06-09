@@ -11,8 +11,8 @@ import kotlinx.android.parcel.Parcelize
 data class DailyBudgetEntity(
         @PrimaryKey(autoGenerate = true)
         val id:Int,
-        @ColumnInfo(name = "Date")
+        @ColumnInfo(name = "today_date")
         val date:String,
-        @ColumnInfo(name = "today budget")
+        @ColumnInfo(name = "today_budget")
         val budget:String
 ):Parcelable

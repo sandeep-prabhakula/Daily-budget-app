@@ -37,9 +37,9 @@ class MyWorker(context: Context, workerParameters: WorkerParameters) :
             applicationContext,
             CHANNEL_ID
         )
-            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setSmallIcon(R.drawable.ic_launcher)
             .setContentTitle("Add Today's expenditure")
-            .setContentText("Make note of all your expenditures")
+            .setContentText("Make note of all your expenses")
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)

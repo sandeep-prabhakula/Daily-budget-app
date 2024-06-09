@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -36,6 +37,7 @@ class UpdateTodayBudgetFragment : Fragment() {
             if(!TextUtils.isEmpty(dateUPtxt)&&!TextUtils.isEmpty(expUPtxt)){
                 val updatedBudget = DailyBudgetEntity(args.currentBudget.id,dateUPtxt,expUPtxt)
                 viewModel.updateTodayBudget(updatedBudget)
+                Toast.makeText(requireContext(),"Expense Updated",Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_updateTodayBudgetFragment2_to_allBudgetListFragment)
             }
         }

@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">BudgetApp</string>
+    <string name="app_name">ExpenseTracker</string>
+    <string name="addExpenseBtn">Add Expense</string>
+    <string name="updateExpenseBtn">Update Expense</string>
+    <string name="editTextHintAddExpenseFragment">Enter the expense</string>
+    <string name="totalMonthlyExpenseLabel">Total monthly expense: </string>
+    <string name="contentDescriptionOfFloatingButton">intentToAddExpense</string>
+    <string name="updateFragmentDateDisabled">Enter today\'s date</string>
+    <string name="watermark">watermark</string>
 </resources>

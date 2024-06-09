@@ -21,7 +21,9 @@ abstract class BudgetDatabase :RoomDatabase() {
             synchronized(this){
                 val instance = Room.databaseBuilder(context.applicationContext,
                 BudgetDatabase::class.java,
-                "daily_budget").build()
+                "daily_budget")
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 return instance
             }

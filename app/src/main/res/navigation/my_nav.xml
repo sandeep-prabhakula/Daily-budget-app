@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/allBudgetListFragment"
         android:name="com.sandeepprabhakula.budgetapp.fragments.read.AllBudgetListFragment"
-        android:label="Daily Budget"
-        tools:layout="@layout/fragment_all_budget_list" >
+        android:label="Daily Expenses"
+        tools:layout="@layout/fragment_all_budget_list">
         <action
             android:id="@+id/action_allBudgetListFragment_to_addTodayBudgetFragment"
             app:destination="@id/addTodayBudgetFragment"
@@ -24,8 +24,8 @@
     <fragment
         android:id="@+id/addTodayBudgetFragment"
         android:name="com.sandeepprabhakula.budgetapp.fragments.add.AddTodayBudgetFragment"
-        android:label="Add Today's Budget"
-        tools:layout="@layout/fragment_add_today_budget" >
+        android:label="Add today's Expense"
+        tools:layout="@layout/fragment_add_today_budget">
         <action
             android:id="@+id/action_addTodayBudgetFragment_to_allBudgetListFragment"
             app:destination="@id/allBudgetListFragment"
@@ -39,14 +39,14 @@
     <fragment
         android:id="@+id/updateTodayBudgetFragment2"
         android:name="com.sandeepprabhakula.budgetapp.fragments.update.UpdateTodayBudgetFragment"
-        android:label="Update Budget" >
+        android:label="Update Expense">
         <action
             android:id="@+id/action_updateTodayBudgetFragment2_to_allBudgetListFragment"
             app:destination="@id/allBudgetListFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
             app:popUpTo="@id/updateTodayBudgetFragment2"
             app:popUpToInclusive="true" />
         <argument
